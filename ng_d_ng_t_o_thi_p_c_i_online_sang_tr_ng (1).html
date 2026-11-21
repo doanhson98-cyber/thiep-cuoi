@@ -1,0 +1,2476 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thiệp Cưới Online - Wedding Invitation Studio</title>
+    <!-- Tải Google Fonts nghệ thuật tiếng Việt kèm font hệ thống dự phòng -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================================
+           1. RESET & BIẾN HỆ THỐNG (100% CSS THUẦN ĐỘC LẬP)
+           ========================================================= */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --app-bg: #f1f5f9;
+            --panel-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-light: #e2e8f0;
+            --brand-primary: #b45309;
+            --brand-hover: #92400e;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 14px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 50px rgba(15, 23, 42, 0.16);
+            --font-ui: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            font-family: var(--font-ui);
+            background-color: var(--app-bg);
+            color: var(--text-main);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* =========================================================
+           2. BẢNG MÀU CHỦ ĐỀ THIỆP CƯỚI (4 THEMES)
+           ========================================================= */
+        /* Chủ đề 1: Vàng Champagne Hoàng Gia */
+        .theme-gold {
+            --card-bg: #fffdf9;
+            --card-surface-alt: #fcf6ea;
+            --card-accent: #a16207;
+            --card-accent-soft: rgba(161, 98, 7, 0.12);
+            --card-text: #292524;
+            --card-text-sub: #78716c;
+            --card-border: #ead7b7;
+            --card-btn-bg: linear-gradient(135deg, #b45309, #d97706);
+            --petal-color: #f59e0b;
+        }
+
+        /* Chủ đề 2: Đỏ Son Truyền Thống */
+        .theme-crimson {
+            --card-bg: #fff9f9;
+            --card-surface-alt: #fef2f2;
+            --card-accent: #9f1239;
+            --card-accent-soft: rgba(159, 18, 57, 0.1);
+            --card-text: #271519;
+            --card-text-sub: #7f555d;
+            --card-border: #fecdd3;
+            --card-btn-bg: linear-gradient(135deg, #9f1239, #e11d48);
+            --petal-color: #f43f5e;
+        }
+
+        /* Chủ đề 3: Xanh Olive Thanh Lịch */
+        .theme-olive {
+            --card-bg: #fafcf9;
+            --card-surface-alt: #f0f5ee;
+            --card-accent: #3f6212;
+            --card-accent-soft: rgba(63, 98, 18, 0.11);
+            --card-text: #1c2419;
+            --card-text-sub: #5c6b57;
+            --card-border: #d9e6d3;
+            --card-btn-bg: linear-gradient(135deg, #3f6212, #65a30d);
+            --petal-color: #84cc16;
+        }
+
+        /* Chủ đề 4: Hồng Pastel Lãng Mạn */
+        .theme-blush {
+            --card-bg: #fffafb;
+            --card-surface-alt: #fdf2f8;
+            --card-accent: #be185d;
+            --card-accent-soft: rgba(190, 24, 93, 0.1);
+            --card-text: #331926;
+            --card-text-sub: #83566c;
+            --card-border: #fbcfe8;
+            --card-btn-bg: linear-gradient(135deg, #be185d, #ec4899);
+            --petal-color: #f472b6;
+        }
+
+        /* =========================================================
+           3. CẶP FONT CHỮ NGHỆ THUẬT (3 FONT SETS)
+           ========================================================= */
+        .font-classic {
+            --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            --font-script: 'Great Vibes', 'Brush Script MT', cursive;
+            --font-body: 'Cormorant Garamond', Georgia, serif;
+        }
+
+        .font-modern {
+            --font-heading: 'Cormorant Garamond', Georgia, serif;
+            --font-script: 'Great Vibes', cursive;
+            --font-body: 'Be Vietnam Pro', sans-serif;
+        }
+
+        .font-royal {
+            --font-heading: 'Playfair Display', Georgia, serif;
+            --font-script: 'Playfair Display', Georgia, serif;
+            --font-body: 'Be Vietnam Pro', sans-serif;
+        }
+
+        /* =========================================================
+           4. THANH ĐIỀU HƯỚNG CỐ ĐỊNH TRÊN CÙNG (APP HEADER)
+           ========================================================= */
+        .app-shell {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #b45309, #f59e0b);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(180, 83, 9, 0.25);
+        }
+
+        .brand-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+
+        .brand-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* Bộ chuyển tab trên Mobile & Tablet */
+        .mobile-tabs {
+            display: flex;
+            background: #e2e8f0;
+            padding: 3px;
+            border-radius: 10px;
+        }
+
+        .tab-btn {
+            border: none;
+            background: transparent;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: #ffffff;
+            color: #0f172a;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+        }
+
+        .btn-guest-view {
+            border: none;
+            background: linear-gradient(135deg, #b45309, #d97706);
+            color: #ffffff;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 3px 10px rgba(180, 83, 9, 0.28);
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .btn-guest-view:active {
+            transform: scale(0.97);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border-light);
+            background: #f8fafc;
+            color: #334155;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+        }
+
+        /* =========================================================
+           5. BỐ CỤC CHIA ĐÔI: BẢNG CHỈNH SỬA & KHUNG XEM TRƯỚC
+           ========================================================= */
+        .workspace {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Cột trái: Editor */
+        .editor-panel {
+            width: 100%;
+            max-width: 440px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-light);
+            overflow-y: auto;
+            padding: 18px 16px 80px 16px;
+        }
+
+        .editor-section {
+            background: #f8fafc;
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 14px;
+        }
+
+        .editor-section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+
+        .badge-step {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: #fef3c7;
+            color: #b45309;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 4px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 9px 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 13px;
+            color: #0f172a;
+            background: #ffffff;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: #d97706;
+            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
+        }
+
+        /* Nút chọn Theme màu */
+        .theme-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .theme-chip {
+            border: 1.5px solid #e2e8f0;
+            background: #ffffff;
+            padding: 8px 10px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.15s;
+        }
+
+        .theme-chip.active {
+            border-color: #b45309;
+            background: #fffbeb;
+            color: #92400e;
+        }
+
+        .color-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 1px solid rgba(0,0,0,0.15);
+        }
+
+        /* Quản lý Album ảnh trong Editor */
+        .upload-dropzone {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+            background: #ffffff;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            margin-bottom: 10px;
+        }
+
+        .upload-dropzone:hover {
+            border-color: #d97706;
+            background: #fffbeb;
+        }
+
+        .album-editor-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 240px;
+            overflow-y: auto;
+        }
+
+        .album-editor-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 6px;
+        }
+
+        .album-editor-thumb {
+            width: 44px;
+            height: 44px;
+            border-radius: 7px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #f1f5f9;
+        }
+
+        .btn-icon-danger {
+            border: none;
+            background: #fee2e2;
+            color: #dc2626;
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* Cột phải: Khung Xem Trước Thiệp Cưới */
+        .preview-panel {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 12px 90px 12px;
+            background: radial-gradient(circle at top, #e2e8f0, #cbd5e1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .preview-status-bar {
+            width: 100%;
+            max-width: 560px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 14px;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+        }
+
+        .quick-jump-group {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .quick-jump-btn {
+            border: none;
+            background: #f1f5f9;
+            color: #334155;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           6. TẤM THIỆP CƯỚI ONLINE HOÀN CHỈNH (WEDDING CARD CANVAS)
+           ========================================================= */
+        .wedding-card {
+            position: relative;
+            width: 100%;
+            max-width: 560px;
+            background-color: var(--card-bg);
+            color: var(--card-text);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+        }
+
+        /* Hiệu ứng cánh hoa rơi */
+        .petals-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 15;
+        }
+
+        .petal {
+            position: absolute;
+            top: -20px;
+            width: 11px;
+            height: 15px;
+            background: var(--petal-color);
+            opacity: 0.45;
+            border-radius: 15px 0 15px 0;
+            animation: fallPetal linear infinite;
+        }
+
+        @keyframes fallPetal {
+            0% {
+                transform: translateY(-20px) rotate(0deg) translateX(0);
+                opacity: 0;
+            }
+            15% { opacity: 0.55; }
+            85% { opacity: 0.45; }
+            100% {
+                transform: translateY(1100px) rotate(360deg) translateX(40px);
+                opacity: 0;
+            }
+        }
+
+        /* Viền khung trang trí bên trong thiệp */
+        .card-inner-frame {
+            margin: 12px;
+            border: 1.5px solid var(--card-border);
+            border-radius: 18px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-block {
+            padding: 32px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .card-block:last-child {
+            border-bottom: none;
+        }
+
+        .card-block-alt {
+            background-color: var(--card-surface-alt);
+        }
+
+        .eyebrow-en {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--card-accent);
+            margin-bottom: 6px;
+        }
+
+        .sub-eyebrow {
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--card-text-sub);
+            margin-bottom: 14px;
+        }
+
+        .divider-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 14px auto;
+            color: var(--card-accent);
+            font-size: 14px;
+        }
+
+        .divider-line {
+            width: 56px;
+            height: 1px;
+            background: var(--card-border);
+        }
+
+        /* Khung lời mời cá nhân hóa */
+        .guest-invite-box {
+            display: inline-block;
+            background: var(--card-surface-alt);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 12px 22px;
+            margin: 10px 0 18px 0;
+        }
+
+        .invite-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--card-text-sub);
+        }
+
+        .guest-name-display {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--card-accent);
+            margin-top: 4px;
+        }
+
+        /* Tên Cô Dâu & Chú Rể */
+        .couple-hero {
+            margin: 14px 0 20px 0;
+        }
+
+        .couple-name {
+            font-family: var(--font-script);
+            font-size: 42px;
+            line-height: 1.2;
+            color: var(--card-accent);
+            font-weight: 600;
+        }
+
+        .couple-amp {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-style: italic;
+            color: var(--card-text-sub);
+            margin: 2px 0;
+        }
+
+        /* Ảnh bìa chính của hai vợ chồng */
+        .hero-photo-frame {
+            width: 230px;
+            height: 290px;
+            margin: 18px auto 10px auto;
+            border-radius: 120px 120px 20px 20px;
+            padding: 6px;
+            border: 1.5px solid var(--card-accent);
+            background: #ffffff;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .hero-photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 114px 114px 15px 15px;
+            display: block;
+        }
+
+        /* Thông tin Hai Gia Đình (Nhà Trai - Nhà Gái) */
+        .families-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .family-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 14px 10px;
+        }
+
+        .family-role {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--card-accent);
+            margin-bottom: 6px;
+        }
+
+        .parent-names {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--card-text);
+            line-height: 1.45;
+        }
+
+        .family-address {
+            font-size: 11px;
+            color: var(--card-text-sub);
+            margin-top: 6px;
+            line-height: 1.35;
+        }
+
+        /* Ngày Giờ Tổ Chức & Đồng Hồ Đếm Ngược */
+        .wedding-date-banner {
+            margin: 14px auto;
+            padding: 16px;
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .date-time-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--card-text-sub);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .date-main-display {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--card-accent);
+            margin: 6px 0;
+            letter-spacing: 0.06em;
+        }
+
+        .lunar-date-text {
+            font-size: 12px;
+            font-style: italic;
+            color: var(--card-text-sub);
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-width: 340px;
+            margin: 18px auto 0 auto;
+        }
+
+        .countdown-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 10px 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .countdown-num {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--card-accent);
+            line-height: 1.1;
+        }
+
+        .countdown-unit {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--card-text-sub);
+            margin-top: 3px;
+        }
+
+        /* Album Ảnh Cưới / Khoảnh Khắc Ngọt Ngào */
+        .section-heading {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--card-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+        }
+
+        .section-desc {
+            font-size: 12px;
+            color: var(--card-text-sub);
+            margin-bottom: 16px;
+        }
+
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .album-photo-card {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            aspect-ratio: 3 / 4;
+            cursor: pointer;
+            background: #f8fafc;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .album-photo-card:first-child {
+            grid-column: span 2;
+            aspect-ratio: 16 / 10;
+        }
+
+        .album-photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+
+        .album-photo-card:hover img {
+            transform: scale(1.04);
+        }
+
+        .album-caption-overlay {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 18px 10px 8px 10px;
+            background: linear-gradient(to top, rgba(0,0,0,0.68), transparent);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        /* Chế độ trình chiếu Carousel */
+        .carousel-box {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1.5px solid var(--card-border);
+            aspect-ratio: 4 / 3;
+            background: #0f172a;
+        }
+
+        .carousel-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            cursor: pointer;
+        }
+
+        .carousel-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.88);
+            color: #0f172a;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .carousel-prev { left: 10px; }
+        .carousel-next { right: 10px; }
+
+        /* Lịch trình hôn lễ & Địa điểm */
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .timeline-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 12px 6px;
+        }
+
+        .timeline-icon {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .timeline-time {
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--card-accent);
+        }
+
+        .timeline-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--card-text);
+            margin-top: 2px;
+        }
+
+        .timeline-note {
+            font-size: 10px;
+            color: var(--card-text-sub);
+            margin-top: 2px;
+        }
+
+        .venue-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .venue-title {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--card-text);
+            margin: 4px 0 6px 0;
+        }
+
+        .venue-addr {
+            font-size: 12px;
+            color: var(--card-text-sub);
+            margin-bottom: 14px;
+        }
+
+        .btn-card-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: none;
+            background: var(--card-btn-bg);
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.14);
+        }
+
+        /* Form RSVP & Sổ lưu bút lời chúc */
+        .rsvp-card-form {
+            background: var(--card-surface-alt);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: left;
+            margin-bottom: 18px;
+        }
+
+        .wishes-container {
+            text-align: left;
+        }
+
+        .wishes-header {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--card-accent);
+            margin-bottom: 10px;
+        }
+
+        .wishes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .wish-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 10px 12px;
+        }
+
+        .wish-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .wish-author {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--card-text);
+        }
+
+        .wish-tag {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: var(--card-accent-soft);
+            color: var(--card-accent);
+        }
+
+        .wish-body {
+            font-size: 12px;
+            font-style: italic;
+            color: var(--card-text-sub);
+        }
+
+        /* Hộp Mừng Cưới QR Code */
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .qr-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 14px 10px;
+        }
+
+        .qr-role {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--card-accent);
+            margin-bottom: 8px;
+        }
+
+        .qr-img-wrap {
+            width: 112px;
+            height: 112px;
+            margin: 0 auto 8px auto;
+            padding: 6px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-img-wrap img, .qr-img-wrap svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .bank-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--card-text);
+        }
+
+        .acc-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 4px 0;
+        }
+
+        .acc-number {
+            font-family: monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--card-accent);
+        }
+
+        .btn-copy-mini {
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            color: #334155;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .acc-holder {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--card-text-sub);
+        }
+
+        /* =========================================================
+           7. CHẾ ĐỘ XEM HOÀN THIỆN KHÁCH MỜI (FULLSCREEN GUEST VIEW)
+           ========================================================= */
+        body.guest-fullscreen-active .app-header,
+        body.guest-fullscreen-active .editor-panel,
+        body.guest-fullscreen-active .preview-status-bar {
+            display: none !important;
+        }
+
+        body.guest-fullscreen-active .preview-panel {
+            position: fixed;
+            inset: 0;
+            z-index: 80;
+            background: #0f172a;
+            padding: 64px 12px 64px 12px;
+            overflow-y: auto;
+            display: block !important;
+        }
+
+        body.guest-fullscreen-active .wedding-card {
+            margin: 0 auto;
+        }
+
+        .guest-floating-bar {
+            display: none;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 24px);
+            max-width: 560px;
+            z-index: 95;
+            background: rgba(15, 23, 42, 0.94);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 999px;
+            padding: 8px 14px;
+            color: #ffffff;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+        }
+
+        body.guest-fullscreen-active .guest-floating-bar {
+            display: flex;
+        }
+
+        .guest-badge {
+            background: #f59e0b;
+            color: #0f172a;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+
+        .btn-auto-play {
+            border: none;
+            background: #10b981;
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+
+        .btn-auto-play.is-playing {
+            background: #ef4444;
+        }
+
+        .btn-auto-play:active {
+            transform: scale(0.96);
+        }
+
+        /* =========================================================
+           8. LIGHTBOX PHÓNG TO ẢNH CƯỚI & THÔNG BÁO TOAST
+           ========================================================= */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 120;
+            background: rgba(9, 13, 22, 0.95);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .lightbox-modal.open {
+            display: flex;
+        }
+
+        .lightbox-img {
+            max-width: 94vw;
+            max-height: 74vh;
+            border-radius: 14px;
+            object-fit: contain;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        .lightbox-caption {
+            color: #f8fafc;
+            font-size: 13px;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .lightbox-controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .lightbox-btn {
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.12);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toast-box {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(90px);
+            background: #0f172a;
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            z-index: 150;
+            opacity: 0;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            max-width: 92vw;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .toast-box.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* =========================================================
+           9. RESPONSIVE CHO MOBILE & DESKTOP
+           ========================================================= */
+        .hidden-panel {
+            display: none !important;
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-tabs {
+                display: none;
+            }
+            .editor-panel, .preview-panel {
+                display: block !important;
+            }
+            .preview-panel {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .couple-name { font-size: 36px; }
+            .families-grid { grid-template-columns: 1fr; }
+            .qr-grid { grid-template-columns: 1fr; }
+            .brand-sub { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-shell">
+        <!-- THANH ĐIỀU HƯỚNG CỐ ĐỊNH -->
+        <header class="app-header">
+            <div class="brand-box">
+                <div class="brand-logo">💍</div>
+                <div>
+                    <div class="brand-title">Wedding Studio</div>
+                    <div class="brand-sub">Thiết kế thiệp cưới online</div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <!-- Chuyển Tab trên điện thoại -->
+                <div class="mobile-tabs" id="mobileTabSwitcher">
+                    <button type="button" id="tabEditBtn" class="tab-btn active" onclick="switchTab('edit')">Chỉnh sửa</button>
+                    <button type="button" id="tabPreviewBtn" class="tab-btn" onclick="switchTab('preview')">Xem trước</button>
+                </div>
+
+                <!-- Nút Chế độ Khách Mời (Xem hoàn thiện) -->
+                <button type="button" class="btn-guest-view" onclick="toggleGuestFullscreen()">
+                    <span>👁️ Xem hoàn thiện (Khách mời)</span>
+                </button>
+
+                <!-- Nút Sao chép lời mời -->
+                <button type="button" class="btn-secondary" onclick="copyInvitationMessage()">
+                    <span>📋 Sao chép lời mời</span>
+                </button>
+
+                <!-- Nút mở Mã QR Thiệp Cưới Online -->
+                <button type="button" class="btn-secondary" onclick="openInviteQrModal()">
+                    <span>📱 QR Thiệp</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- THANH NỔI KHI Ở CHẾ ĐỘ KHÁCH MỜI TOÀN MÀN HÌNH -->
+        <div class="guest-floating-bar" id="guestFloatingBar">
+            <div style="display:flex;align-items:center;gap:8px;">
+                <span class="guest-badge">Khách mời</span>
+                <button type="button" id="guestAutoScrollBtn" class="btn-auto-play" onclick="toggleAutoScroll()">
+                    <span>⏸️ Stop</span>
+                </button>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+                <button type="button" class="btn-secondary" style="padding:6px 10px;font-size:11px;border-radius:999px;" onclick="copyInvitationMessage()">Chia sẻ</button>
+                <button type="button" class="btn-guest-view" style="padding:6px 12px;font-size:11px;border-radius:999px;" onclick="toggleGuestFullscreen()">✏️ Thoát</button>
+            </div>
+        </div>
+
+        <!-- KHÔNG GIAN LÀM VIỆC CHÍNH -->
+        <div class="workspace">
+            <!-- CỘT TRÁI: BẢNG ĐIỀU KHIỂN CHỈNH SỬA -->
+            <aside class="editor-panel" id="editorPanel">
+                <!-- 1. Giao diện & Font chữ -->
+                <div class="editor-section">
+                    <div class="editor-section-title">
+                        <span class="badge-step">1</span>
+                        <span>Chủ Đề Màu Sắc & Kiểu Chữ</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bảng màu thiệp cưới</label>
+                        <div class="theme-selector">
+                            <button type="button" class="theme-chip active" data-theme="theme-gold" onclick="selectTheme('theme-gold', this)">
+                                <span class="color-dot" style="background:#d97706;"></span>
+                                <span>Vàng Champagne</span>
+                            </button>
+                            <button type="button" class="theme-chip" data-theme="theme-crimson" onclick="selectTheme('theme-crimson', this)">
+                                <span class="color-dot" style="background:#be123c;"></span>
+                                <span>Đỏ Son Hoàng Gia</span>
+                            </button>
+                            <button type="button" class="theme-chip" data-theme="theme-olive" onclick="selectTheme('theme-olive', this)">
+                                <span class="color-dot" style="background:#4d7c0f;"></span>
+                                <span>Xanh Olive</span>
+                            </button>
+                            <button type="button" class="theme-chip" data-theme="theme-blush" onclick="selectTheme('theme-blush', this)">
+                                <span class="color-dot" style="background:#db2777;"></span>
+                                <span>Hồng Pastel</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-grid-2" style="margin-top:10px;">
+                        <div class="form-group">
+                            <label class="form-label">Cặp Font Chữ</label>
+                            <select id="inFontStyle" class="form-select" onchange="updateCard()">
+                                <option value="font-classic">Cổ Điển Lãng Mạn</option>
+                                <option value="font-modern">Hiện Đại Thanh Lịch</option>
+                                <option value="font-royal">Sang Trọng Hoàng Gia</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Hiệu Ứng Cánh Hoa</label>
+                            <select id="inPetalsToggle" class="form-select" onchange="togglePetals()">
+                                <option value="on">Bật hoa rơi nhẹ nhàng</option>
+                                <option value="off">Tắt hiệu ứng</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Nội dung mở đầu & Tên Cô Dâu Chú Rể -->
+                <div class="editor-section">
+                    <div class="editor-section-title">
+                        <span class="badge-step">2</span>
+                        <span>Thông Tin Cô Dâu & Chú Rể</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tên Khách Mời (Cá nhân hóa)</label>
+                        <input type="text" id="inGuestName" class="form-input" value="Quý Khách & Gia Đình" oninput="updateCard()">
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Tên Chú Rể</label>
+                            <input type="text" id="inGroomName" class="form-input" value="Minh Quân" oninput="updateCard()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tên Cô Dâu</label>
+                            <input type="text" id="inBrideName" class="form-input" value="Thảo Vy" oninput="updateCard()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Lời trích dẫn tình yêu</label>
+                        <textarea id="inLoveQuote" rows="2" class="form-textarea" oninput="updateCard()">Trăm năm tình viên mãn, bạc đầu nghĩa phu thê. Hạnh phúc nhất là được cùng người mình thương đi hết chặng đường đời.</textarea>
+                    </div>
+                </div>
+
+                <!-- 3. Thông tin Hai Gia Đình -->
+                <div class="editor-section">
+                    <div class="editor-section-title">
+                        <span class="badge-step">3</span>
+                        <span>Thông Tin Hai Gia Đình</span>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Ông (Nhà Trai)</label>
+                            <input type="text" id="inGroomFather" class="form-input" value="Ông Nguyễn Văn Hùng" oninput="updateCard()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Bà (Nhà Trai)</label>
+                            <input type="text" id="inGroomMother" class="form-input" value="Bà Trần Thị Lan" oninput="updateCard()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Địa chỉ Nhà Trai</label>
+                        <input type="text" id="inGroomHome" class="form-input" value="Hải Châu, TP. Đà Nẵng" oninput="updateCard()">
+                    </div>
+                    <div class="form-grid-2" style="margin-top:8px;">
+                        <div class="form-group">
+                            <label class="form-label">Ông (Nhà Gái)</label>
+                            <input type="text" id="inBrideFather" class="form-input" value="Ông Lê Hoàng Nam" oninput="updateCard()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Bà (Nhà Gái)</label>
+                            <input type="text" id="inBrideMother" class="form-input" value="Bà Phạm Thu Hương" oninput="updateCard()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Địa chỉ Nhà Gái</label>
+                        <input type="text" id="inBrideHome" class="form-input" value="Sơn Trà, TP. Đà Nẵng" oninput="updateCard()">
+                    </div>
+                </div>
+
+                <!-- 4. Album Ảnh Cưới & Khoảnh Khắc -->
+                <div class="editor-section">
+                    <div class="editor-section-title">
+                        <span class="badge-step">4</span>
+                        <span>Album Ảnh Cưới Vợ Chồng</span>
+                    </div>
+                    <div class="upload-dropzone" onclick="document.getElementById('albumFileInput').click()">
+                        <div style="font-size:20px;margin-bottom:4px;">📸</div>
+                        <div style="font-size:12px;font-weight:700;color:#0f172a;">Tải ảnh cưới từ điện thoại / máy tính</div>
+                        <div style="font-size:11px;color:#64748b;">Có thể chọn nhiều ảnh cùng lúc</div>
+                        <input type="file" id="albumFileInput" accept="image/*" multiple style="display:none;" onchange="handleAlbumUpload(event)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Kiểu hiển thị Album trên thiệp</label>
+                        <select id="inAlbumLayout" class="form-select" onchange="renderAlbumOnCard()">
+                            <option value="grid">Lưới nghệ thuật (Grid Gallery)</option>
+                            <option value="carousel">Trình chiếu trượt (Carousel)</option>
+                        </select>
+                    </div>
+                    <div class="album-editor-list" id="albumEditorList"></div>
+                </div>
+
+                <!-- 5. Thời gian, Lịch trình & Địa điểm -->
+                <div class="editor-section">
+                    <div class="editor-section-title">
+                        <span class="badge-step">5</span>
+                        <span>Thời Gian & Địa Điểm Tổ Chức</span>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Ngày Cưới (Dương lịch)</label>
+                            <input type="date" id="inWeddingDate" class="form-input" value="2026-12-20" onchange="updateCard()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Giờ Khai Tiệc</label>
+                            <input type="time" id="inWeddingTime" class="form-input" value="18:00" onchange="updateCard()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ngày Âm Lịch</label>
+                        <input type="text" id="inLunarDate" class="form-input" value="Tức ngày 12 tháng 11 năm Bính Ngọ" oninput="updateCard()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tên Trung Tâm Tiệc Cưới</label>
+                        <input type="text" id="inVenueName" class="form-input" value="TRUNG TÂM TIỆC CƯỚI GOLDEN PALACE" oninput="updateCard()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Địa chỉ chi tiết</label>
+                        <input type="text" id="inVenueAddress" class="form-input" value="Sảnh Diamond - 123 Bạch Đằng, Hải Châu, Đà Nẵng" oninput="updateCard()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Link Web Thiệp Đã Xuất Bản (Tùy chọn để gắn vào QR)</label>
+                        <input type="url" id="inCustomShareUrl" class="form-input" placeholder="Ví dụ: https://ten-cua-ban.github.io/thiep-cuoi" oninput="syncInvitationQrCodes()">
+                        <div style="font-size:11px;color:#64748b;margin-top:4px;">Nếu để trống, QR sẽ hiển thị trực tiếp nội dung thiệp mời khi quét.</div>
+                    </div>
+                </div>
+
+                <!-- 6. Hộp Mừng Cưới Ngân Hàng -->
+                <div class="editor-section">
+                    <div class="editor-section-title">
+                        <span class="badge-step">6</span>
+                        <span>Hộp Mừng Cưới (Mã QR Tự Động)</span>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Ngân hàng Chú Rể</label>
+                            <input type="text" id="inGroomBank" class="form-input" value="Vietcombank" oninput="updateCard()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">STK Chú Rể</label>
+                            <input type="text" id="inGroomAcc" class="form-input" value="0041000123456" oninput="updateCard()">
+                        </div>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Ngân hàng Cô Dâu</label>
+                            <input type="text" id="inBrideBank" class="form-input" value="Techcombank" oninput="updateCard()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">STK Cô Dâu</label>
+                            <input type="text" id="inBrideAcc" class="form-input" value="1903456789012" oninput="updateCard()">
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- CỘT PHẢI: KHUNG XEM TRƯỚC THIỆP CƯỚI HOÀN CHỈNH -->
+            <main class="preview-panel hidden-panel" id="previewPanel">
+                <!-- Thanh trạng thái & điều khiển trình chiếu trực tiếp -->
+                <div class="preview-status-bar">
+                    <div class="status-indicator">
+                        <span class="pulse-dot"></span>
+                        <span>Bản xem trước toàn bộ thiệp</span>
+                    </div>
+                    <div class="quick-jump-group">
+                        <button type="button" id="previewAutoScrollBtn" class="btn-auto-play" onclick="toggleAutoScroll()">
+                            <span>▶️ Play trình chiếu</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TẤM THIỆP CƯỚI CHÍNH -->
+                <article id="weddingCard" class="wedding-card theme-gold font-classic">
+                    <!-- Lớp cánh hoa rơi -->
+                    <div id="petalsLayer" class="petals-layer"></div>
+
+                    <div class="card-inner-frame">
+                        <!-- PHẦN 1: TIÊU ĐỀ & CÔ DÂU CHÚ RỂ -->
+                        <section class="card-block">
+                            <div class="eyebrow-en">WEDDING INVITATION</div>
+                            <div class="sub-eyebrow">THE WEDDING DAY</div>
+
+                            <div class="guest-invite-box">
+                                <div class="invite-label">TRÂN TRỌNG KÍNH MỜI</div>
+                                <div id="outGuestName" class="guest-name-display">Quý Khách & Gia Đình</div>
+                            </div>
+
+                            <p id="outLoveQuote" style="font-family:var(--font-body);font-style:italic;font-size:14px;color:var(--card-text-sub);max-width:420px;margin:0 auto;">
+                                Trăm năm tình viên mãn, bạc đầu nghĩa phu thê. Hạnh phúc nhất là được cùng người mình thương đi hết chặng đường đời.
+                            </p>
+
+                            <div class="divider-ornament">
+                                <span class="divider-line"></span>
+                                <span>❦</span>
+                                <span class="divider-line"></span>
+                            </div>
+
+                            <div class="couple-hero">
+                                <div id="outGroomName" class="couple-name">Minh Quân</div>
+                                <div class="couple-amp">&amp;</div>
+                                <div id="outBrideName" class="couple-name">Thảo Vy</div>
+                            </div>
+
+                            <div class="hero-photo-frame">
+                                <img id="outHeroPhoto" src="" alt="Ảnh cưới Cô Dâu Chú Rể">
+                            </div>
+                        </section>
+
+                        <!-- PHẦN 2: TỪ HAI GIA ĐÌNH & NGÀY CƯỚI -->
+                        <section class="card-block card-block-alt">
+                            <div class="eyebrow-en">OUR FAMILIES</div>
+                            <h2 class="section-heading">TỪ HAI GIA ĐÌNH</h2>
+
+                            <div class="families-grid">
+                                <div class="family-card">
+                                    <div class="family-role">NHÀ TRAI</div>
+                                    <div id="outGroomFather" class="parent-names">Ông Nguyễn Văn Hùng</div>
+                                    <div id="outGroomMother" class="parent-names">Bà Trần Thị Lan</div>
+                                    <div id="outGroomHome" class="family-address">Hải Châu, TP. Đà Nẵng</div>
+                                </div>
+                                <div class="family-card">
+                                    <div class="family-role">NHÀ GÁI</div>
+                                    <div id="outBrideFather" class="parent-names">Ông Lê Hoàng Nam</div>
+                                    <div id="outBrideMother" class="parent-names">Bà Phạm Thu Hương</div>
+                                    <div id="outBrideHome" class="family-address">Sơn Trà, TP. Đà Nẵng</div>
+                                </div>
+                            </div>
+
+                            <div class="wedding-date-banner">
+                                <div id="outDateTimeLabel" class="date-time-text">CHỦ NHẬT • LÚC 18:00</div>
+                                <div id="outDateMain" class="date-main-display">20 . 12 . 2026</div>
+                                <div id="outLunarDate" class="lunar-date-text">(Tức ngày 12 tháng 11 năm Bính Ngọ)</div>
+
+                                <!-- Đồng hồ đếm ngược -->
+                                <div class="countdown-grid">
+                                    <div class="countdown-box">
+                                        <div id="cdDays" class="countdown-num">00</div>
+                                        <div class="countdown-unit">Ngày</div>
+                                    </div>
+                                    <div class="countdown-box">
+                                        <div id="cdHours" class="countdown-num">00</div>
+                                        <div class="countdown-unit">Giờ</div>
+                                    </div>
+                                    <div class="countdown-box">
+                                        <div id="cdMins" class="countdown-num">00</div>
+                                        <div class="countdown-unit">Phút</div>
+                                    </div>
+                                    <div class="countdown-box">
+                                        <div id="cdSecs" class="countdown-num">00</div>
+                                        <div class="countdown-unit">Giây</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- PHẦN 3: ALBUM KHOẢNH KHẮC NGỌT NGÀO -->
+                        <section id="cardAlbumPart" class="card-block">
+                            <div class="eyebrow-en">OUR LOVE STORY</div>
+                            <h2 class="section-heading">KHOẢNH KHẮC NGỌT NGÀO</h2>
+                            <p class="section-desc">Chạm vào từng bức ảnh để xem trọn vẹn khoảnh khắc của chúng tôi</p>
+                            <div id="cardAlbumContainer"></div>
+                        </section>
+
+                        <!-- PHẦN 4: LỊCH TRÌNH HÔN LỄ & ĐỊA ĐIỂM -->
+                        <section class="card-block card-block-alt">
+                            <div class="eyebrow-en">WEDDING TIMELINE</div>
+                            <h2 class="section-heading">LỊCH TRÌNH HÔN LỄ</h2>
+                            <p class="section-desc">Rất hân hạnh được đón tiếp Quý khách đến chung vui</p>
+
+                            <div class="timeline-grid">
+                                <div class="timeline-item">
+                                    <div class="timeline-icon">🥂</div>
+                                    <div class="timeline-time">17:30</div>
+                                    <div class="timeline-name">Đón Khách</div>
+                                    <div class="timeline-note">Chụp ảnh lưu niệm</div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-icon">💍</div>
+                                    <div class="timeline-time">18:15</div>
+                                    <div class="timeline-name">Nghi Lễ</div>
+                                    <div class="timeline-note">Cắt bánh & Rót rượu</div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-icon">🍽️</div>
+                                    <div id="outTimelineParty" class="timeline-time">18:30</div>
+                                    <div class="timeline-name">Khai Tiệc</div>
+                                    <div class="timeline-note">Chung vui gia đình</div>
+                                </div>
+                            </div>
+
+                            <div class="venue-box">
+                                <div class="eyebrow-en" style="margin-bottom:2px;">ĐỊA ĐIỂM TỔ CHỨC</div>
+                                <div id="outVenueName" class="venue-title">TRUNG TÂM TIỆC CƯỚI GOLDEN PALACE</div>
+                                <div id="outVenueAddress" class="venue-addr">Sảnh Diamond - 123 Bạch Đằng, Hải Châu, Đà Nẵng</div>
+                                <a id="outMapLink" href="https://maps.google.com/?q=Da+Nang" target="_blank" rel="noopener noreferrer" class="btn-card-primary">
+                                    <span>📍 Xem chỉ đường trên Google Maps</span>
+                                </a>
+                            </div>
+                        </section>
+
+                        <!-- PHẦN 5: XÁC NHẬN THAM DỰ (RSVP) & SỔ LƯU BÚT LỜI CHÚC -->
+                        <section id="cardRsvpPart" class="card-block">
+                            <div class="eyebrow-en">R.S.V.P &amp; WISHES</div>
+                            <h2 class="section-heading">XÁC NHẬN &amp; LỜI CHÚC</h2>
+                            <p class="section-desc">Sự hiện diện của Quý khách là niềm vinh hạnh lớn của gia đình</p>
+
+                            <form class="rsvp-card-form" onsubmit="handleGuestRsvp(event)">
+                                <div class="form-group">
+                                    <label class="form-label">Tên Quý Khách *</label>
+                                    <input type="text" id="rsvpNameInput" class="form-input" required placeholder="Nhập họ tên của bạn...">
+                                </div>
+                                <div class="form-grid-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Tham dự</label>
+                                        <select id="rsvpAttendInput" class="form-select">
+                                            <option value="Sẽ tham dự">Chắc chắn tham dự</option>
+                                            <option value="Đi cùng gia đình">Đi cùng người thân</option>
+                                            <option value="Rất tiếc bận việc">Rất tiếc bận việc</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Khách của</label>
+                                        <select id="rsvpSideInput" class="form-select">
+                                            <option value="Nhà Trai">Nhà Trai</option>
+                                            <option value="Nhà Gái">Nhà Gái</option>
+                                            <option value="Bạn chung">Bạn chung</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Lời chúc gửi Cô Dâu &amp; Chú Rể *</label>
+                                    <textarea id="rsvpWishInput" rows="2" class="form-textarea" required placeholder="Chúc hai bạn trăm năm hạnh phúc..."></textarea>
+                                </div>
+                                <button type="submit" class="btn-card-primary" style="width:100%;border-radius:12px;">
+                                    <span>💌 Gửi Xác Nhận &amp; Lời Chúc</span>
+                                </button>
+                            </form>
+
+                            <div class="wishes-container">
+                                <div class="wishes-header">❤️ Lời Chúc Từ Bạn Bè (<span id="wishesCount">2</span>)</div>
+                                <div id="wishesList" class="wishes-list"></div>
+                            </div>
+                        </section>
+
+                        <!-- PHẦN 6: HỘP MỪNG CƯỚI MÃ QR -->
+                        <section id="cardGiftPart" class="card-block card-block-alt">
+                            <div class="eyebrow-en">WEDDING GIFT</div>
+                            <h2 class="section-heading">HỘP MỪNG CƯỚI</h2>
+                            <p class="section-desc">Gửi trọn yêu thương đến Cô Dâu &amp; Chú Rể trong ngày trọng đại</p>
+
+                            <div class="qr-grid">
+                                <div class="qr-card">
+                                    <div class="qr-role">MỪNG CƯỚI CHÚ RỂ</div>
+                                    <div id="outGroomQrBox" class="qr-img-wrap"></div>
+                                    <div id="outGroomBank" class="bank-title">Vietcombank</div>
+                                    <div class="acc-row">
+                                        <span id="outGroomAcc" class="acc-number">0041000123456</span>
+                                        <button type="button" class="btn-copy-mini" onclick="copyText('outGroomAcc')">Copy</button>
+                                    </div>
+                                    <div id="outGroomHolder" class="acc-holder">MINH QUAN</div>
+                                </div>
+                                <div class="qr-card">
+                                    <div class="qr-role">MỪNG CƯỚI CÔ DÂU</div>
+                                    <div id="outBrideQrBox" class="qr-img-wrap"></div>
+                                    <div id="outBrideBank" class="bank-title">Techcombank</div>
+                                    <div class="acc-row">
+                                        <span id="outBrideAcc" class="acc-number">1903456789012</span>
+                                        <button type="button" class="btn-copy-mini" onclick="copyText('outBrideAcc')">Copy</button>
+                                    </div>
+                                    <div id="outBrideHolder" class="acc-holder">THAO VY</div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- PHẦN 7: LỜI CẢM ƠN & MÃ QR XEM THIỆP ONLINE -->
+                        <section class="card-block">
+                            <div style="font-family:var(--font-script);font-size:38px;color:var(--card-accent);">Thank You!</div>
+                            <p style="font-size:12px;color:var(--card-text-sub);max-width:360px;margin:4px auto 16px auto;">
+                                Sự hiện diện và lời chúc phúc của Quý vị là món quà trân quý nhất đối với gia đình chúng tôi.
+                            </p>
+
+                            <!-- Khung Mã QR để khách quét xem thiệp online -->
+                            <div style="display:inline-block;background:var(--card-surface-alt);border:1px solid var(--card-border);border-radius:16px;padding:14px 18px;max-width:240px;">
+                                <div class="eyebrow-en" style="margin-bottom:8px;">QR XEM THIỆP ONLINE</div>
+                                <div id="outCardInviteQrBox" class="qr-img-wrap" style="width:126px;height:126px;margin-bottom:8px;"></div>
+                                <div style="font-size:11px;font-weight:600;color:var(--card-text);">Quét mã để mở thiệp trên điện thoại</div>
+                                <div id="outCardInviteLinkText" style="font-size:10px;color:var(--card-text-sub);margin-top:4px;word-break:break-all;"></div>
+                            </div>
+                        </section>
+                    </div>
+                </article>
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL HIỂN THỊ MÃ QR MỜI XEM THIỆP CƯỚI ONLINE -->
+    <div id="inviteQrModal" class="lightbox-modal" onclick="closeInviteQrModal(event)">
+        <div style="background:#ffffff;color:#0f172a;border-radius:20px;padding:22px 20px;max-width:340px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.45);" onclick="event.stopPropagation()">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#b45309;margin-bottom:4px;">WEDDING INVITATION QR</div>
+            <h3 style="font-size:18px;font-weight:700;margin-bottom:6px;">Mã QR Xem Thiệp Cưới</h3>
+            <p style="font-size:12px;color:#64748b;margin-bottom:14px;">Đưa mã này cho khách mời quét camera để mở thiệp cưới online</p>
+            <div id="modalInviteQrBox" class="qr-img-wrap" style="width:168px;height:168px;margin:0 auto 12px auto;"></div>
+            <div id="modalInviteUrlDisplay" style="font-size:11px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:8px 10px;color:#334155;word-break:break-all;margin-bottom:14px;"></div>
+            <div style="display:flex;gap:8px;justify-content:center;">
+                <button type="button" class="btn-guest-view" onclick="copyInviteLink()">🔗 Sao chép link</button>
+                <button type="button" class="btn-secondary" onclick="downloadStandaloneCard()">💾 Tải file thiệp</button>
+                <button type="button" class="btn-secondary" onclick="closeInviteQrModal()">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX PHÓNG TO ẢNH CƯỚI -->
+    <div id="lightboxModal" class="lightbox-modal" onclick="closeLightbox(event)">
+        <img id="lightboxImg" class="lightbox-img" src="" alt="Ảnh cưới phóng to">
+        <div id="lightboxCaption" class="lightbox-caption"></div>
+        <div class="lightbox-controls" onclick="event.stopPropagation()">
+            <button type="button" class="lightbox-btn" onclick="stepLightbox(-1)">◀ Ảnh trước</button>
+            <button type="button" class="lightbox-btn" onclick="closeLightbox()">✕ Đóng</button>
+            <button type="button" class="lightbox-btn" onclick="stepLightbox(1)">Ảnh sau ▶</button>
+        </div>
+    </div>
+
+    <!-- THÔNG BÁO TOAST -->
+    <div id="toastBox" class="toast-box"></div>
+
+    <script>
+        /* =========================================================
+           DỮ LIỆU MẪU SVG NGHỆ THUẬT (KHÔNG BAO GIỜ LỖI ẢNH)
+           ========================================================= */
+        function createWeddingIllustrationSVG(title, subtitle, bgStart, bgEnd, accent) {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750">
+                <defs>
+                    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="${bgStart}"/>
+                        <stop offset="100%" stop-color="${bgEnd}"/>
+                    </linearGradient>
+                </defs>
+                <rect width="600" height="750" fill="url(#g)"/>
+                <rect x="28" y="28" width="544" height="694" rx="24" fill="none" stroke="${accent}" stroke-width="2" stroke-opacity="0.45"/>
+                <circle cx="300" cy="270" r="115" fill="${accent}" fill-opacity="0.12"/>
+                <circle cx="272" cy="270" r="54" fill="none" stroke="${accent}" stroke-width="5"/>
+                <circle cx="328" cy="270" r="54" fill="none" stroke="${accent}" stroke-width="5"/>
+                <path d="M300 185 L314 205 L300 220 L286 205 Z" fill="${accent}"/>
+                <text x="300" y="455" text-anchor="middle" font-family="Georgia, serif" font-size="30" font-weight="bold" fill="#292524">${title}</text>
+                <text x="300" y="495" text-anchor="middle" font-family="sans-serif" font-size="16" letter-spacing="4" fill="${accent}">${subtitle}</text>
+                <text x="300" y="655" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="16" fill="#78716c">Save The Date • Forever &amp; Always</text>
+            </svg>`;
+            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+        }
+
+        // Danh sách ảnh cưới mặc định
+        let weddingPhotos = [
+            {
+                src: createWeddingIllustrationSVG('Minh Quân & Thảo Vy', 'PRE-WEDDING STUDIO', '#fef3c7', '#fde68a', '#b45309'),
+                caption: 'Khoảnh khắc hạnh phúc ngày chung đôi'
+            },
+            {
+                src: createWeddingIllustrationSVG('Trao Nhẫn Đính Ước', 'LOVE STORY', '#ffe4e6', '#fecdd3', '#be123c'),
+                caption: 'Lời hứa trọn đời bên nhau'
+            },
+            {
+                src: createWeddingIllustrationSVG('Dưới Ánh Hoàng Hôn', 'SWEET MEMORIES', '#ecfccb', '#d9f99d', '#4d7c0f'),
+                caption: 'Nắm tay nhau đi qua mọi mùa yêu thương'
+            }
+        ];
+
+        // Danh sách lời chúc ban đầu
+        let wishesData = [
+            {
+                name: 'Hoàng Nam & Gia Đình',
+                attend: 'Sẽ tham dự',
+                side: 'Nhà Trai',
+                text: 'Chúc hai bạn trăm năm hạnh phúc, mãi yêu thương và đồng hành cùng nhau!'
+            },
+            {
+                name: 'Thanh Trúc',
+                attend: 'Sẽ tham dự',
+                side: 'Nhà Gái',
+                text: 'Chúc mừng hạnh phúc cô dâu xinh đẹp và chú rể phong độ! Hẹn gặp hai bạn nhé!'
+            }
+        ];
+
+        let currentSlideIndex = 0;
+        let lightboxIndex = 0;
+        let countdownTimer = null;
+        let isAutoScrolling = false;
+        let autoScrollRafId = null;
+        let exactScrollTop = 0;
+
+        /* =========================================================
+           HIỂN THỊ THÔNG BÁO TOAST
+           ========================================================= */
+        function showToast(msg) {
+            const box = document.getElementById('toastBox');
+            box.textContent = msg;
+            box.classList.add('show');
+            clearTimeout(window._toastTimer);
+            window._toastTimer = setTimeout(() => {
+                box.classList.remove('show');
+            }, 3000);
+        }
+
+        /* =========================================================
+           CHUYỂN TAB MOBILE & CHẾ ĐỘ KHÁCH MỜI HOÀN THIỆN
+           ========================================================= */
+        function switchTab(tab) {
+            const editor = document.getElementById('editorPanel');
+            const preview = document.getElementById('previewPanel');
+            const btnEdit = document.getElementById('tabEditBtn');
+            const btnPreview = document.getElementById('tabPreviewBtn');
+
+            if (tab === 'edit') {
+                editor.classList.remove('hidden-panel');
+                preview.classList.add('hidden-panel');
+                btnEdit.classList.add('active');
+                btnPreview.classList.remove('active');
+            } else {
+                editor.classList.add('hidden-panel');
+                preview.classList.remove('hidden-panel');
+                btnEdit.classList.remove('active');
+                btnPreview.classList.add('active');
+            }
+        }
+
+        function toggleGuestFullscreen() {
+            const isFull = document.body.classList.toggle('guest-fullscreen-active');
+            const previewPanel = document.getElementById('previewPanel');
+            if (isFull) {
+                previewPanel.classList.remove('hidden-panel');
+                previewPanel.scrollTop = 0;
+                exactScrollTop = 0;
+                startAutoScroll();
+                showToast('Đang tự động trình chiếu toàn bộ thiệp cưới');
+            } else {
+                stopAutoScroll();
+                if (window.innerWidth < 1024) {
+                    switchTab('edit');
+                }
+            }
+        }
+
+        /* =========================================================
+           TỰ ĐỘNG TRÌNH CHIẾU TỪ ĐẦU ĐẾN CUỐI THIỆP (PLAY / STOP)
+           ========================================================= */
+        function updateAutoScrollButtons() {
+            const guestBtn = document.getElementById('guestAutoScrollBtn');
+            const previewBtn = document.getElementById('previewAutoScrollBtn');
+
+            if (isAutoScrolling) {
+                if (guestBtn) {
+                    guestBtn.innerHTML = '<span>⏸️ Stop</span>';
+                    guestBtn.classList.add('is-playing');
+                }
+                if (previewBtn) {
+                    previewBtn.innerHTML = '<span>⏸️ Stop trình chiếu</span>';
+                    previewBtn.classList.add('is-playing');
+                }
+            } else {
+                if (guestBtn) {
+                    guestBtn.innerHTML = '<span>▶️ Play</span>';
+                    guestBtn.classList.remove('is-playing');
+                }
+                if (previewBtn) {
+                    previewBtn.innerHTML = '<span>▶️ Play trình chiếu</span>';
+                    previewBtn.classList.remove('is-playing');
+                }
+            }
+        }
+
+        function startAutoScroll() {
+            const panel = document.getElementById('previewPanel');
+            if (!panel) return;
+
+            // Nếu đã cuộn đến cuối trang thì quay lại từ đầu để trình chiếu trọn vẹn
+            if (panel.scrollTop + panel.clientHeight >= panel.scrollHeight - 4) {
+                panel.scrollTop = 0;
+            }
+
+            isAutoScrolling = true;
+            exactScrollTop = panel.scrollTop;
+            updateAutoScrollButtons();
+            cancelAnimationFrame(autoScrollRafId);
+
+            function step() {
+                if (!isAutoScrolling) return;
+                const maxScroll = panel.scrollHeight - panel.clientHeight;
+                if (exactScrollTop >= maxScroll - 1) {
+                    panel.scrollTop = maxScroll;
+                    stopAutoScroll();
+                    showToast('Đã trình chiếu hết toàn bộ thiệp cưới!');
+                    return;
+                }
+                exactScrollTop += 1.15; // Tốc độ cuộn mượt mà dễ đọc
+                panel.scrollTop = exactScrollTop;
+                autoScrollRafId = requestAnimationFrame(step);
+            }
+
+            autoScrollRafId = requestAnimationFrame(step);
+        }
+
+        function stopAutoScroll() {
+            isAutoScrolling = false;
+            cancelAnimationFrame(autoScrollRafId);
+            updateAutoScrollButtons();
+        }
+
+        function toggleAutoScroll() {
+            if (isAutoScrolling) {
+                stopAutoScroll();
+                showToast('Đã tạm dừng trình chiếu (Stop)');
+            } else {
+                startAutoScroll();
+                showToast('Tiếp tục trình chiếu thiệp cưới (Play)');
+            }
+        }
+
+        /* =========================================================
+           CHỌN CHỦ ĐỀ MÀU SẮC & CÁNH HOA RƠI
+           ========================================================= */
+        function selectTheme(themeClass, btnEl) {
+            const card = document.getElementById('weddingCard');
+            card.classList.remove('theme-gold', 'theme-crimson', 'theme-olive', 'theme-blush');
+            card.classList.add(themeClass);
+
+            document.querySelectorAll('.theme-chip').forEach(c => c.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+        }
+
+        function initPetals() {
+            const layer = document.getElementById('petalsLayer');
+            layer.innerHTML = '';
+            for (let i = 0; i < 16; i++) {
+                const p = document.createElement('div');
+                p.className = 'petal';
+                p.style.left = (Math.random() * 100) + '%';
+                p.style.animationDuration = (7 + Math.random() * 6) + 's';
+                p.style.animationDelay = (Math.random() * 5) + 's';
+                layer.appendChild(p);
+            }
+        }
+
+        function togglePetals() {
+            const mode = document.getElementById('inPetalsToggle').value;
+            document.getElementById('petalsLayer').style.display = mode === 'on' ? 'block' : 'none';
+        }
+
+        /* =========================================================
+           TẠO MÃ QR SVG ĐỘC LẬP & CẬP NHẬT NỘI DUNG THIỆP
+           ========================================================= */
+        function renderQrGraphic(containerId, seedText) {
+            const el = document.getElementById(containerId);
+            if (!el) return;
+            // Tạo ma trận QR trực quan sắc nét kèm ảnh API dự phòng
+            const encoded = encodeURIComponent(seedText);
+            const fallbackSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <rect width="100" height="100" fill="#ffffff"/>
+                <rect x="8" y="8" width="26" height="26" fill="none" stroke="#0f172a" stroke-width="5"/>
+                <rect x="15" y="15" width="12" height="12" fill="#0f172a"/>
+                <rect x="66" y="8" width="26" height="26" fill="none" stroke="#0f172a" stroke-width="5"/>
+                <rect x="73" y="15" width="12" height="12" fill="#0f172a"/>
+                <rect x="8" y="66" width="26" height="26" fill="none" stroke="#0f172a" stroke-width="5"/>
+                <rect x="15" y="73" width="12" height="12" fill="#0f172a"/>
+                <rect x="44" y="14" width="12" height="12" fill="#0f172a"/>
+                <rect x="44" y="44" width="12" height="12" fill="#b45309"/>
+                <rect x="64" y="44" width="12" height="12" fill="#0f172a"/>
+                <rect x="44" y="68" width="12" height="12" fill="#0f172a"/>
+                <rect x="72" y="72" width="18" height="18" fill="#0f172a"/>
+            </svg>`;
+            const fallbackUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(fallbackSvg);
+            el.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encoded}" alt="QR Mừng Cưới" onerror="this.onerror=null;this.src='${fallbackUrl}';">`;
+        }
+
+        function removeVietnameseTones(str) {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toUpperCase();
+        }
+
+        // Tạo nội dung hoặc đường dẫn gắn vào mã QR thiệp cưới
+        function getInvitationQrPayload() {
+            const groom = document.getElementById('inGroomName').value.trim() || 'Minh Quân';
+            const bride = document.getElementById('inBrideName').value.trim() || 'Thảo Vy';
+            const guest = document.getElementById('inGuestName').value.trim() || 'Quý Khách';
+            const dateStr = document.getElementById('outDateMain').textContent;
+            const timeStr = document.getElementById('outDateTimeLabel').textContent;
+            const venue = document.getElementById('inVenueName').value.trim();
+            const addr = document.getElementById('inVenueAddress').value.trim();
+
+            const customUrl = (document.getElementById('inCustomShareUrl')?.value || '').trim();
+            const currentLoc = window.location.href || '';
+            const isPublicHostedUrl = currentLoc.startsWith('http') && !currentLoc.includes('localhost') && !currentLoc.includes('127.0.0.1');
+
+            const targetBaseUrl = customUrl || (isPublicHostedUrl ? currentLoc.split('?')[0] : '');
+
+            if (targetBaseUrl) {
+                const separator = targetBaseUrl.includes('?') ? '&' : '?';
+                const fullUrl = `${targetBaseUrl}${separator}groom=${encodeURIComponent(groom)}&bride=${encodeURIComponent(bride)}&guest=${encodeURIComponent(guest)}&guestMode=1`;
+                return { isUrl: true, value: fullUrl };
+            }
+
+            // Khi chưa xuất bản lên web thật: QR chứa trực tiếp thiệp mời dạng văn bản chuẩn để khách quét đọc ngay
+            const textCard = `💌 THIỆP MỜI CƯỚI ONLINE\nTrân trọng kính mời: ${guest}\nLễ Thành Hôn: ${groom} & ${bride}\nThời gian: ${timeStr} - Ngày ${dateStr}\nĐịa điểm: ${venue} (${addr})\nHân hạnh được đón tiếp!`;
+            return { isUrl: false, value: textCard };
+        }
+
+        function syncInvitationQrCodes() {
+            const payload = getInvitationQrPayload();
+            const cardLinkEl = document.getElementById('outCardInviteLinkText');
+            const modalLinkEl = document.getElementById('modalInviteUrlDisplay');
+
+            if (payload.isUrl) {
+                const shortLabel = payload.value.length > 48 ? payload.value.slice(0, 48) + '...' : payload.value;
+                if (cardLinkEl) cardLinkEl.textContent = shortLabel;
+                if (modalLinkEl) modalLinkEl.textContent = payload.value;
+            } else {
+                if (cardLinkEl) cardLinkEl.textContent = 'Quét QR để xem trực tiếp nội dung thiệp mời (hoặc nhập Link Web ở mục 5)';
+                if (modalLinkEl) modalLinkEl.textContent = payload.value;
+            }
+
+            renderQrGraphic('outCardInviteQrBox', payload.value);
+            renderQrGraphic('modalInviteQrBox', payload.value);
+        }
+
+        function openInviteQrModal() {
+            syncInvitationQrCodes();
+            document.getElementById('inviteQrModal').classList.add('open');
+        }
+
+        function closeInviteQrModal() {
+            document.getElementById('inviteQrModal').classList.remove('open');
+        }
+
+        function copyInviteLink() {
+            const payload = getInvitationQrPayload();
+            const temp = document.createElement('textarea');
+            temp.value = payload.value;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast(payload.isUrl ? 'Đã sao chép đường dẫn thiệp cưới online!' : 'Đã sao chép nội dung thiệp mời!');
+        }
+
+        // Tải file thiệp cưới hoàn chỉnh (.html) để gửi bạn bè hoặc đưa lên web miễn phí
+        function downloadStandaloneCard() {
+            try {
+                const cloneDoc = document.documentElement.cloneNode(true);
+                cloneDoc.querySelector('body').classList.add('guest-fullscreen-active');
+                const htmlContent = '<!DOCTYPE html>\n' + cloneDoc.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'thiep-cuoi-online.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('Đã tải file thiep-cuoi-online.html về máy!');
+            } catch (e) {
+                showToast('Không thể tải file trên trình duyệt này');
+            }
+        }
+
+        function applyUrlQueryParams() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                if (params.get('groom')) document.getElementById('inGroomName').value = params.get('groom');
+                if (params.get('bride')) document.getElementById('inBrideName').value = params.get('bride');
+                if (params.get('guest')) document.getElementById('inGuestName').value = params.get('guest');
+                if (params.get('guestMode') === '1') {
+                    document.body.classList.add('guest-fullscreen-active');
+                    document.getElementById('previewPanel').classList.remove('hidden-panel');
+                }
+            } catch (e) {}
+        }
+
+        function updateCard() {
+            const card = document.getElementById('weddingCard');
+            const fontClass = document.getElementById('inFontStyle').value;
+            card.classList.remove('font-classic', 'font-modern', 'font-royal');
+            card.classList.add(fontClass);
+
+            const guestName = document.getElementById('inGuestName').value.trim() || 'Quý Khách & Gia Đình';
+            const groomName = document.getElementById('inGroomName').value.trim() || 'Minh Quân';
+            const brideName = document.getElementById('inBrideName').value.trim() || 'Thảo Vy';
+            const loveQuote = document.getElementById('inLoveQuote').value.trim();
+
+            document.getElementById('outGuestName').textContent = guestName;
+            document.getElementById('outGroomName').textContent = groomName;
+            document.getElementById('outBrideName').textContent = brideName;
+            document.getElementById('outLoveQuote').textContent = loveQuote;
+
+            // Hai gia đình
+            document.getElementById('outGroomFather').textContent = document.getElementById('inGroomFather').value;
+            document.getElementById('outGroomMother').textContent = document.getElementById('inGroomMother').value;
+            document.getElementById('outGroomHome').textContent = document.getElementById('inGroomHome').value;
+
+            document.getElementById('outBrideFather').textContent = document.getElementById('inBrideFather').value;
+            document.getElementById('outBrideMother').textContent = document.getElementById('inBrideMother').value;
+            document.getElementById('outBrideHome').textContent = document.getElementById('inBrideHome').value;
+
+            // Ngày cưới & địa điểm
+            const rawDate = document.getElementById('inWeddingDate').value;
+            const rawTime = document.getElementById('inWeddingTime').value || '18:00';
+            if (rawDate) {
+                const parts = rawDate.split('-');
+                const dObj = new Date(parts[0], parts[1] - 1, parts[2]);
+                const daysVi = ['CHỦ NHẬT', 'THỨ HAI', 'THỨ BA', 'THỨ TƯ', 'THỨ NĂM', 'THỨ SÁU', 'THỨ BẢY'];
+                document.getElementById('outDateTimeLabel').textContent = `${daysVi[dObj.getDay()]} • LÚC ${rawTime}`;
+                document.getElementById('outDateMain').textContent = `${parts[2]} . ${parts[1]} . ${parts[0]}`;
+                startCountdown(`${rawDate}T${rawTime}:00`);
+            }
+
+            document.getElementById('outLunarDate').textContent = `(${document.getElementById('inLunarDate').value})`;
+            document.getElementById('outTimelineParty').textContent = rawTime;
+
+            const venueName = document.getElementById('inVenueName').value;
+            const venueAddr = document.getElementById('inVenueAddress').value;
+            document.getElementById('outVenueName').textContent = venueName;
+            document.getElementById('outVenueAddress').textContent = venueAddr;
+            document.getElementById('outMapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueName + ' ' + venueAddr)}`;
+
+            // Hộp mừng cưới QR
+            const gBank = document.getElementById('inGroomBank').value;
+            const gAcc = document.getElementById('inGroomAcc').value;
+            const bBank = document.getElementById('inBrideBank').value;
+            const bAcc = document.getElementById('inBrideAcc').value;
+
+            document.getElementById('outGroomBank').textContent = gBank;
+            document.getElementById('outGroomAcc').textContent = gAcc;
+            document.getElementById('outGroomHolder').textContent = removeVietnameseTones(groomName);
+            renderQrGraphic('outGroomQrBox', `${gBank}-${gAcc}-${removeVietnameseTones(groomName)}`);
+
+            document.getElementById('outBrideBank').textContent = bBank;
+            document.getElementById('outBrideAcc').textContent = bAcc;
+            document.getElementById('outBrideHolder').textContent = removeVietnameseTones(brideName);
+            renderQrGraphic('outBrideQrBox', `${bBank}-${bAcc}-${removeVietnameseTones(brideName)}`);
+
+            // Cập nhật Mã QR mời xem thiệp cưới online
+            syncInvitationQrCodes();
+        }
+
+        /* =========================================================
+           ĐỒNG HỒ ĐẾM NGƯỢC
+           ========================================================= */
+        function startCountdown(targetIso) {
+            clearInterval(countdownTimer);
+            const targetTime = new Date(targetIso).getTime();
+
+            function tick() {
+                const now = Date.now();
+                const diff = targetTime - now;
+                if (isNaN(targetTime) || diff <= 0) {
+                    document.getElementById('cdDays').textContent = '00';
+                    document.getElementById('cdHours').textContent = '00';
+                    document.getElementById('cdMins').textContent = '00';
+                    document.getElementById('cdSecs').textContent = '00';
+                    return;
+                }
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const m = Math.floor((diff / 1000 / 60) % 60);
+                const s = Math.floor((diff / 1000) % 60);
+
+                document.getElementById('cdDays').textContent = String(d).padStart(2, '0');
+                document.getElementById('cdHours').textContent = String(h).padStart(2, '0');
+                document.getElementById('cdMins').textContent = String(m).padStart(2, '0');
+                document.getElementById('cdSecs').textContent = String(s).padStart(2, '0');
+            }
+            tick();
+            countdownTimer = setInterval(tick, 1000);
+        }
+
+        /* =========================================================
+           QUẢN LÝ ALBUM ẢNH CƯỚI & LIGHTBOX PHÓNG TO
+           ========================================================= */
+        function handleAlbumUpload(event) {
+            const files = Array.from(event.target.files || []);
+            if (!files.length) return;
+
+            let loadedCount = 0;
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    weddingPhotos.unshift({
+                        src: e.target.result,
+                        caption: file.name.replace(/\.[^/.]+$/, '')
+                    });
+                    loadedCount++;
+                    if (loadedCount === files.length) {
+                        currentSlideIndex = 0;
+                        renderAlbumEditor();
+                        renderAlbumOnCard();
+                        showToast(`Đã thêm ${files.length} ảnh cưới vào thiệp!`);
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+            event.target.value = '';
+        }
+
+        function updatePhotoCaption(idx, val) {
+            if (weddingPhotos[idx]) {
+                weddingPhotos[idx].caption = val;
+                renderAlbumOnCard();
+            }
+        }
+
+        function removeAlbumPhoto(idx) {
+            if (weddingPhotos.length <= 1) {
+                showToast('Cần giữ lại ít nhất 1 ảnh trên thiệp');
+                return;
+            }
+            weddingPhotos.splice(idx, 1);
+            currentSlideIndex = 0;
+            renderAlbumEditor();
+            renderAlbumOnCard();
+            showToast('Đã xóa ảnh khỏi album');
+        }
+
+        function renderAlbumEditor() {
+            const list = document.getElementById('albumEditorList');
+            list.innerHTML = weddingPhotos.map((item, idx) => `
+                <div class="album-editor-item">
+                    <img src="${item.src}" class="album-editor-thumb" alt="Thumb">
+                    <input type="text" class="form-input" style="padding:6px 8px;font-size:12px;" value="${item.caption.replace(/"/g, '&quot;')}" oninput="updatePhotoCaption(${idx}, this.value)" placeholder="Chú thích ảnh...">
+                    <button type="button" class="btn-icon-danger" onclick="removeAlbumPhoto(${idx})" title="Xóa ảnh">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function renderAlbumOnCard() {
+            if (!weddingPhotos.length) return;
+            // Ảnh đầu tiên làm ảnh bìa chính của Cô Dâu Chú Rể
+            document.getElementById('outHeroPhoto').src = weddingPhotos[0].src;
+
+            const container = document.getElementById('cardAlbumContainer');
+            const layout = document.getElementById('inAlbumLayout').value;
+
+            if (layout === 'carousel') {
+                const photo = weddingPhotos[currentSlideIndex % weddingPhotos.length];
+                container.innerHTML = `
+                    <div class="carousel-box">
+                        <img src="${photo.src}" alt="${photo.caption}" onclick="openLightbox(${currentSlideIndex % weddingPhotos.length})">
+                        <button type="button" class="carousel-nav-btn carousel-prev" onclick="moveSlide(-1)">◀</button>
+                        <button type="button" class="carousel-nav-btn carousel-next" onclick="moveSlide(1)">▶</button>
+                        <div class="album-caption-overlay">${photo.caption} (${(currentSlideIndex % weddingPhotos.length) + 1}/${weddingPhotos.length})</div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="album-grid">
+                        ${weddingPhotos.map((p, idx) => `
+                            <div class="album-photo-card" onclick="openLightbox(${idx})">
+                                <img src="${p.src}" alt="${p.caption}">
+                                <div class="album-caption-overlay">${p.caption}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+
+        function moveSlide(step) {
+            currentSlideIndex = (currentSlideIndex + step + weddingPhotos.length) % weddingPhotos.length;
+            renderAlbumOnCard();
+        }
+
+        function openLightbox(idx) {
+            lightboxIndex = idx;
+            const modal = document.getElementById('lightboxModal');
+            document.getElementById('lightboxImg').src = weddingPhotos[lightboxIndex].src;
+            document.getElementById('lightboxCaption').textContent = `${weddingPhotos[lightboxIndex].caption} (${lightboxIndex + 1} / ${weddingPhotos.length})`;
+            modal.classList.add('open');
+        }
+
+        function stepLightbox(step) {
+            lightboxIndex = (lightboxIndex + step + weddingPhotos.length) % weddingPhotos.length;
+            openLightbox(lightboxIndex);
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightboxModal').classList.remove('open');
+        }
+
+        /* =========================================================
+           XÁC NHẬN THAM DỰ (RSVP) & SỔ LƯU BÚT LỜI CHÚC
+           ========================================================= */
+        function renderWishes() {
+            document.getElementById('wishesCount').textContent = wishesData.length;
+            document.getElementById('wishesList').innerHTML = wishesData.map(w => `
+                <div class="wish-item">
+                    <div class="wish-top">
+                        <span class="wish-author">${w.name}</span>
+                        <span class="wish-tag">${w.attend} • ${w.side}</span>
+                    </div>
+                    <div class="wish-body">"${w.text}"</div>
+                </div>
+            `).join('');
+        }
+
+        function handleGuestRsvp(event) {
+            event.preventDefault();
+            const nameEl = document.getElementById('rsvpNameInput');
+            const attendEl = document.getElementById('rsvpAttendInput');
+            const sideEl = document.getElementById('rsvpSideInput');
+            const wishEl = document.getElementById('rsvpWishInput');
+
+            const name = nameEl.value.trim();
+            const text = wishEl.value.trim();
+            if (!name || !text) return;
+
+            wishesData.unshift({
+                name: name,
+                attend: attendEl.value,
+                side: sideEl.value,
+                text: text
+            });
+
+            renderWishes();
+            nameEl.value = '';
+            wishEl.value = '';
+            showToast(`Cảm ơn ${name} đã gửi xác nhận & lời chúc phúc!`);
+        }
+
+        /* =========================================================
+           SAO CHÉP LỜI MỜI & SỐ TÀI KHOẢN
+           ========================================================= */
+        function copyText(elementId) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            const temp = document.createElement('textarea');
+            temp.value = el.textContent.trim();
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast(`Đã sao chép: ${temp.value}`);
+        }
+
+        function copyInvitationMessage() {
+            const guest = document.getElementById('outGuestName').textContent;
+            const groom = document.getElementById('outGroomName').textContent;
+            const bride = document.getElementById('outBrideName').textContent;
+            const dateStr = document.getElementById('outDateMain').textContent;
+            const timeStr = document.getElementById('outDateTimeLabel').textContent;
+            const venue = document.getElementById('outVenueName').textContent;
+            const addr = document.getElementById('outVenueAddress').textContent;
+
+            const message = `💌 THIỆP MỜI CƯỚI ONLINE\nTrân trọng kính mời: ${guest}\nĐến dự lễ thành hôn của ${groom} & ${bride}\n⏰ Thời gian: ${timeStr} - Ngày ${dateStr}\n📍 Địa điểm: ${venue} (${addr})\nSự hiện diện của Quý vị là niềm vinh hạnh lớn của gia đình chúng tôi!`;
+
+            const temp = document.createElement('textarea');
+            temp.value = message;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast('Đã sao chép nội dung lời mời để gửi Zalo/Messenger!');
+        }
+
+        /* =========================================================
+           KHỞI TẠO ỨNG DỤNG
+           ========================================================= */
+        window.onload = function() {
+            applyUrlQueryParams();
+            initPetals();
+            renderAlbumEditor();
+            renderAlbumOnCard();
+            renderWishes();
+            updateCard();
+
+            if (document.body.classList.contains('guest-fullscreen-active')) {
+                startAutoScroll();
+            }
+
+            // Dừng tự động cuộn nếu khách chủ động chạm/kéo tay trên màn hình để xem kỹ
+            const previewPanel = document.getElementById('previewPanel');
+            if (previewPanel) {
+                ['wheel', 'touchstart', 'pointerdown'].forEach(evtName => {
+                    previewPanel.addEventListener(evtName, () => {
+                        if (isAutoScrolling) {
+                            stopAutoScroll();
+                        }
+                    }, { passive: true });
+                });
+            }
+        };
+    </script>
+</body>
+</html>
